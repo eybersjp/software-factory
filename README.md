@@ -12,21 +12,29 @@
 
 ## Installation & Usage
 
-### 1. The Antigravity Native Workflow
+### The Easiest Way: Global Installation
 
-We highly recommend using the Antigravity slash-command workflow.
+You can install the CLI globally using `uv` (or `pipx`) to easily initialize the Software Factory brain in any new project.
 
-Copy the `SF-software-factory.md` file into your `.agents/workflows/` directory.
+```bash
+uv tool install git+https://github.com/eybersjp/software-factory.git
+```
 
-Then, natively trigger the agent:
+Once installed globally, simply navigate to your new project folder and run:
+
+```bash
+software-factory init
+```
+
+This will automatically generate the required `.agents/workflows/SF-software-factory.md` file. You can then open Antigravity and type:
 
 ```bash
 /SF-software-factory Build me a scalable full-stack React / FastAPI application.
 ```
 
-### 2. Standalone Python CLI
+### Advanced: Standalone Python CLI
 
-If you want to use the framework to output scaffolding plans in a terminal:
+If you want to bypass the Antigravity chat and use the framework to output scaffolding plans entirely in a terminal:
 
 ```bash
 uv pip install -e .

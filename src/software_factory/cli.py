@@ -1,4 +1,6 @@
 import typer
+import os
+import urllib.request
 from rich.console import Console
 from rich.panel import Panel
 
@@ -27,6 +29,25 @@ def scaffold_app(
     
     orchestrator = DAGOrchestrator(output_dir=output_dir)
     orchestrator.run(goal=prompt)
+
+@app.command()
+def init():
+    """
+    Initialize the Software Factory Antigravity workflow locally.
+    Creates the .agents/workflows directory and downloads the SF-software-factory.md file.
+    """
+    workflow_dir = os.path.join(os.getcwd(), ".agents", "workflows")
+    os.makedirs(workflow_dir, exist_ok=True)
+    
+    workflow_path = os.path.join(workflow_dir, "SF-software-factory.md")
+    url = "https://raw.githubusercontent.com/eybersjp/software-factory/master/SF-software-factory.md"
+    
+    console.print(f"[cyan]Initializing Software Factory in {workflow_dir}...[/]")
+    try:
+        urllib.request.urlretrieve(url, workflow_path)
+        console.print(Panel("[bold green]Successfully installed the Antigravity Workflow![/]\n\nYou can now type `/SF-software-factory` in this workspace.", border_style="green"))
+    except Exception as e:
+        console.print(f"[bold red]Failed to download workflow:[/] {e}")
 
 @app.command()
 def version():
